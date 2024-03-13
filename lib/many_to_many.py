@@ -9,8 +9,8 @@ class Author:
         return [contract for contract in Contract.all if contract.author == self]
     
     def books(self):
-        return[contract.book for contract in self.contracts()]
-    
+        return list({contract.book for contract in self.contracts()})
+   
     def sign_contract(self, book, date, royalties):
         return Contract(self, book, date, royalties)
     
@@ -26,12 +26,17 @@ class Book:
         type(self).all.append(self)
 
     def contracts(self):
+        
+        contracts_list = []
+        
         for contract in Contract.all:
             if contract.book == self:
-                return [contract]
-        return False
+                contracts_list.append(contract)
+                
+        return contracts_list
     
     def authors(self):
+        
         return [contract.author for contract in self.contracts()]
 
 class Contract:
@@ -86,4 +91,12 @@ class Contract:
         
     @classmethod
     def contracts_by_date(cls,date):
-        return [contract for contract in cls.all if contract.date == date]
+        # return [contract for contract in cls.all if contract.date == date]
+        
+        contract_list = []
+        
+        for contract in cls.all:
+            if contract.date == date:
+                contract_list.append(contract)
+                
+        return contract_list
