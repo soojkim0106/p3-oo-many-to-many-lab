@@ -15,7 +15,7 @@ class Author:
         return Contract(self, book, date, royalties)
     
     def total_royalties(self):
-        return sum([contract.royalties for contract in self.contracts()])
+        return sum(contract.royalties for contract in self.contracts())
 
 
 class Book:
@@ -56,7 +56,7 @@ class Contract:
     @author.setter
     def author(self, author):
         if not isinstance(author, Author):
-            raise Exception('author is not instance of Author class')
+            raise TypeError('author is not instance of Author class')
         self._author = author
 
     @property
@@ -66,7 +66,7 @@ class Contract:
     @book.setter
     def book(self, book):
         if not isinstance(book, Book):
-            raise Exception('book is not instance of Book class')
+            raise TypeError('book is not instance of Book class')
         self._book = book
     
     @property
@@ -76,7 +76,7 @@ class Contract:
     @date.setter
     def date(self, date):
         if not isinstance(date,str):
-            raise Exception('date is not a string')
+            raise ValueError('date is not a string')
         self._date = date
     
     @property
@@ -86,7 +86,7 @@ class Contract:
     @royalties.setter
     def royalties(self, royalties):
         if not isinstance(royalties, int):
-            raise Exception('royalties is not a int')
+            raise ValueError('royalties is not a int')
         self._royalties = royalties
         
     @classmethod
